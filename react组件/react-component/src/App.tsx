@@ -1,4 +1,4 @@
-import { useState, type ComponentType } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import CounterComponent from "./Counter/index";
 import ThrottleComponent from "./Throttle/index";
 import TodoComponent from "./TodoList/index";
