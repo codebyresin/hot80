@@ -22,5 +22,4 @@ const obj = {
 obj.sayHelloNormal(); //普通面试，普通面试
 obj.sayHelloArrow(); //普通面试
 
-//普通函数调用，谁调用，this指向谁
-// 箭头函数没this，this为上下文得到this，上下文是函数的执行环境
+//
