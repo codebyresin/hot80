@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const emitter = new Emitter();
+      const listener = (value) => {
+        console.log("value:", value);
+      };
+
+      emitter.on("hello", listener);
+
+      emitter.once("hello", (value) => {
+        console.log("value once:", value);
+      });
+
+      emitter.emit("hello", "world"); // 打印2次
+      emitter.emit("hello", "world"); // 打印1次
+
+      emitter.off("hello", listener);
+      emitter.emit("hello", "world"); // 不打印
+
+      class Emitter {
+        constructor() {
+          this.event = {};
+        }
+
+        on(name, fn) {
+          (this.event[name] || (this.event[name] = [])).push(fn);
+        }
+
+        emit(name, ...args) {
+          this.event[name].forEach((fn) => {
+            fn(...args);
+          });
+        }
+
+        off(name, fn) {
+          if (!this.event[name]) return;
+          this.event[name] = this.event[name].filter((f) => f !== fn);
+        }
+
+        once(name, fn) {
+          const onceFn = (...args) => {
+            fn(...args);
+            this.off(name, onceFn);
+          };
+          this.on(name, onceFn);
+        }
+      }
+    </script>
+  </body>
+</html>
